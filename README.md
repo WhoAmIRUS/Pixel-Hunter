@@ -7,6 +7,7 @@ JavaScript ES6+
 #### CSS
 PostCSS with plugins
 * [postcss-smart-import](https://github.com/sebastian-software/postcss-smart-import)
+* [postcss-normalize](https://github.com/seaneking/postcss-normalize)
 * [precss](https://github.com/jonathantneal/precss)
 * [cssnext](https://github.com/MoOx/postcss-cssnext)
 * [postcss-short](https://github.com/jonathantneal/postcss-short)
@@ -28,26 +29,36 @@ PostCSS with plugins
 
 ## Steps
 ### First step
-* webpack(config prod and dev, sourcemaps, compression, npm Scripts)
+* webpack(config prod and dev, sourcemaps, compression, npm Scripts) v.1.*
 * Babel
 * postcss
 * eslint
 * stylelint
 * webpack-svgstore-plugin
-* normalize.css
 * hot reload
 * Editor Config(http://editorconfig.org/#download)
 * add pre-commit hooks(check eslint and stylelint)
 
 ### Second step
+* css modules
 * React
 * React Router
 * Redux
-* ? Redux Dev Tools
+* Redux Dev Tools
 * redux-form
-* css modules
-* ? React Helmet
-* ? multireducer
+* React Helmet
+* classnames
 
 ### Third step
 * Merge with backend boilerplate repo
+
+#### Possible to use
+* react-motion
+* multireducer
+* momentum
+* multi select
+* react immutable
+* bem-linting
+* fetch
+* redbox
+
