@@ -1,5 +1,18 @@
 # 4xxi frontend boilerplate project
 
+## Documentation
+
+This project uses `yarn` as a package manager.
+You should install yarn globally before you start working with project:
+`npm i -g yarn`
+(maybe you should use `sudo` - it depends on how NodeJS installed in your env).
+
+After that use:
+
+* `yarn` - to install project dependencies
+* `yarn run dev` - to run webpack-dev-server for local development
+* `yarn run build` - to get a ready bundle with source-map in `/build/` folder
+
 ## Technology
 #### JS
 JavaScript ES6+
@@ -62,4 +75,3 @@ PostCSS with plugins
 * bem-linting
 * fetch
 * redbox
-

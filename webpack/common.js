@@ -9,6 +9,7 @@ module.exports = {
       each entry's resulting bundle size should not be more than 250kb,
       more info here: https://github.com/webpack/webpack/issues/3216
     */
+    'demo-feature': join(rootDir, './src/demo-feature/'),
   },
   module: {
     loaders: [
