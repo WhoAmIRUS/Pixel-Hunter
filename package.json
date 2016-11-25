@@ -1,0 +1,10 @@
+{
+  "name": "4xxi-frontend-boilerplate",
+  "version": "1.0.0",
+  "description": "An example project demonstarting stack of technologies that are used in 4xxi.",
+  "main": "index.js",
+  "repository": "git@bitbucket.org:4xxi/4xxi-frontend-boilerplate.git",
+  "author": "Boris Sergeev <bs@4xxi.com>",
+  "license": "MIT",
+  "dependencies": {}
+}
