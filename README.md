@@ -52,6 +52,7 @@ PostCSS with plugins
 * hot reload
 * Editor Config(http://editorconfig.org/#download)
 * add pre-commit hooks(check eslint and stylelint)
+* inegrate mjml for email's
 
 ### Second step
 * css modules
