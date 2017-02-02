@@ -1,4 +1,4 @@
-var precss = require('postcss-smart-import');
+var postcssImport = require('postcss-smart-import');
 var precss = require('precss');
 var short = require('postcss-short');
 var hoverFocus = require('postcss-focus');

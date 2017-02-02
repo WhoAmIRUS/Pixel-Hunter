@@ -1,7 +1,10 @@
 const join = require('path').join;
 const webpack = require('webpack');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 const rootDir = join(__dirname, '../');
+
+const getPostCSSPlugins = require(join(rootDir, '.postcss'));
 
 module.exports = {
   entry: {
@@ -34,6 +37,9 @@ module.exports = {
       DEV_ENV: process.env.NODE_ENV === 'development',
     }),
     new webpack.EnvironmentPlugin(['NODE_ENV']),
+    new ExtractTextPlugin('./[name].css', {
+        allChunks: true,
+    }),
   ],
   resolve: {
     extensions: ['', '.js'],
@@ -44,4 +50,5 @@ module.exports = {
   resolveLoader: {
     modulesDirectories: [join(rootDir, 'node_modules')],
   },
+  postcss: getPostCSSPlugins,
 };
