@@ -1,4 +1,5 @@
 const webpack = require('webpack');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const config = require('./common');
 
 const prodPlugins = [
@@ -13,6 +14,21 @@ const prodPlugins = [
 ];
 const prodConfig = {
   devtool: 'source-map',
+  module: Object.assign(
+    config.module,
+    {
+      loaders: config.module.loaders.concat([
+        {
+          test: /\.css$/,
+          loader: ExtractTextPlugin.extract('style', 'css'),
+        },
+        {
+          test: /\.scss$/,
+          loader: ExtractTextPlugin.extract('style', 'css!postcss'),
+        },
+      ]),
+    }
+  ),
   plugins: prodPlugins.concat(config.plugins),
 };
 
