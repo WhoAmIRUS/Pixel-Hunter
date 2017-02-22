@@ -1,4 +1,8 @@
 {
+  "env": {
+    "browser": true,
+    "node": true,
+  },
   "extends": "airbnb",
   "parser": "babel-eslint",
   "parserOptions": {
@@ -8,6 +12,10 @@
   },
   "rules": {
     "react/prop-types": 0,
-    "import/imports-first": 0
+    "import/imports-first": 0,
+
+    // to get rid of deperecation notice
+    "react/require-extension": 0,
+    "import/extensions": 2
   }
 }
