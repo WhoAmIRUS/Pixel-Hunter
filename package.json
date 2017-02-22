@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "./node_modules/.bin/cross-env NODE_ENV=development ./node_modules/.bin/webpack-dev-server --config ./webpack --inline --hot",
     "build": "./node_modules/.bin/cross-env NODE_ENV=production ./node_modules/.bin/webpack --config ./webpack --progress",
-    "jslint": "eslint ./src"
+    "eslint": "./node_modules/.bin/eslint ./src",
+    "stylelint": "./node_modules/.bin/stylelint \"./src/**/*.scss\""
   },
   "repository": "git@bitbucket.org:4xxi/4xxi-frontend-boilerplate.git",
   "author": "Boris Sergeev <bs@4xxi.com>",
