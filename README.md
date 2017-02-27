@@ -59,6 +59,7 @@ PostCSS plugins we're using:
 ### First step
 * webpack-svgstore-plugin
 * hot reload
+* choose and install some webpack plugin to build sprites from raster images and use them in CSS
 * inegrate mjml for email's
 
 ### Second step
