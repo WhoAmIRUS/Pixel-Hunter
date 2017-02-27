@@ -52,6 +52,7 @@ PostCSS with plugins
 * hot reload
 * Editor Config(http://editorconfig.org/#download)
 * add pre-commit hooks(check eslint and stylelint)
+* pick and add webpack plugin to build and use sprites from raster images
 * inegrate mjml for email's
 
 ### Second step
