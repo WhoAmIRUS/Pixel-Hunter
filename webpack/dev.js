@@ -28,4 +28,4 @@ const devConfig = {
   ),
 };
 
-module.exports = Object.assign(devConfig, config);
+module.exports = Object.assign(config, devConfig);
