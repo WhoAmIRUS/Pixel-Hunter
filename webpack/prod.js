@@ -32,4 +32,4 @@ const prodConfig = {
   plugins: prodPlugins.concat(config.plugins),
 };
 
-module.exports = Object.assign(prodConfig, config);
+module.exports = Object.assign(config, prodConfig);
