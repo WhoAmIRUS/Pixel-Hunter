@@ -20,11 +20,11 @@ const prodConfig = {
       loaders: config.module.loaders.concat([
         {
           test: /\.css$/,
-          loader: ExtractTextPlugin.extract('style', 'css'),
+          loader: ExtractTextPlugin.extract('style', 'css?-url'),
         },
         {
           test: /\.scss$/,
-          loader: ExtractTextPlugin.extract('style', 'css!postcss'),
+          loader: ExtractTextPlugin.extract('style', 'css?-url!postcss'),
         },
       ]),
     }

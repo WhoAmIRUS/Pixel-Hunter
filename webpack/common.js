@@ -28,7 +28,7 @@ module.exports = {
   },
   output: {
     path: join(rootDir, './build'),
-    publicPath: '/build/',
+    publicPath: '/',
     filename: './[name].js',
     sourceMapFilename: '[file].map?[hash]',
   },
