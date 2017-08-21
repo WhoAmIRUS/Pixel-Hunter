@@ -11,7 +11,7 @@ After that use:
 
 * `yarn` - to install project dependencies
 * `yarn run dev` - to run webpack-dev-server for local development
-* `yarn run build` - to get a ready bundle with source-map in `/build/` folder
+* `yarn run build` - to get a final bundle with source-map in `/build/` folder
 
 After installing dependencies, please run `bin/install-git-hooks.sh`.
 This comand will install [git pre-commit hook](https://git-scm.com/book/gr/v2/Customizing-Git-Git-Hooks) into your local git repository.
@@ -21,6 +21,17 @@ If they're not - you'll see a list of error and warnings, and your commit will n
 We're also have `.editorconfig` file in our repository, which is a great way to sync whitespace settings across team members.
 Please install editorconfig plugin from "Download a Plugin" section of [editorconfig official site](http://editorconfig.org/).
 
+## Preview your final bundle in `/build`
+If you want to preview your final bundle - you'd better start a local webserver that set with `/build` as a root folder.
+
+If you have access to Command Line Interface with python executable installed you can do this with one simple command.
+But first you should check `python --version`:
+
+* if it's `2.*` then your command is `pyton -m SimpleHTTPServer <portnumber>`
+* if it's `3.*` then your command is `python -m http.server <portnumber>`
+
+Where `<portnumber>` is a number of port, on which you want to start server (I'm using `8000` most of the time).
+Use CLI to enter `/build` folder, then launch your command. After that you'll be able to access you server by visiting `http://localhost:<portnumber>` url in your browser...
 
 ## Technology
 #### JS

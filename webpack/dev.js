@@ -17,11 +17,11 @@ const devConfig = {
       loaders: config.module.loaders.concat([
         {
           test: /\.css$/,
-          loader: ExtractTextPlugin.extract('style', 'css?sourceMap'),
+          loader: ExtractTextPlugin.extract('style', 'css?-url&sourceMap'),
         },
         {
           test: /\.scss$/,
-          loader: ExtractTextPlugin.extract('style', 'css?sourceMap!postcss?parser=postcss-scss'),
+          loader: ExtractTextPlugin.extract('style', 'css?-url&sourceMap!postcss?parser=postcss-scss'),
         },
       ]),
     }
