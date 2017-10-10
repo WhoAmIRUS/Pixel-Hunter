@@ -3,15 +3,13 @@
 ## Documentation
 
 This project uses `yarn` as a package manager.
-You should install yarn globally before you start working with project:
-`npm i -g yarn`
-(maybe you should use `sudo` - it depends on how NodeJS installed in your env).
+You should install yarn https://yarnpkg.com/en/docs/install
 
 After that use:
 
 * `yarn` - to install project dependencies
-* `yarn run dev` - to run webpack-dev-server for local development
-* `yarn run build` - to get a final bundle with source-map in `/build/` folder
+* `yarn dev` - to run webpack-dev-server for local development
+* `yarn build` - to get a final bundle with source-map in `/build/` folder
 
 After installing dependencies, please run `bin/install-git-hooks.sh`.
 This comand will install [git pre-commit hook](https://git-scm.com/book/gr/v2/Customizing-Git-Git-Hooks) into your local git repository.
