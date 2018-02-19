@@ -1,5 +1,6 @@
 const join = require('path').join;
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const mergeConfigs = require('./utils/mergeConfigs');
 const config = require('./common');
 
 const rootDir = join(__dirname, '../');
@@ -11,21 +12,39 @@ const devConfig = {
     host: '0.0.0.0',
     port: 8000,
   },
-  module: Object.assign(
-    config.module,
-    {
-      loaders: config.module.loaders.concat([
-        {
-          test: /\.css$/,
-          loader: ExtractTextPlugin.extract('style', 'css?-url&sourceMap'),
-        },
-        {
-          test: /\.scss$/,
-          loader: ExtractTextPlugin.extract('style', 'css?-url&sourceMap!postcss?parser=postcss-scss'),
-        },
-      ]),
-    }
-  ),
+  module: {
+    rules: [
+      {
+        test: /\.css$/,
+        loader: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: [{
+            loader: 'css-loader',
+            options: {
+              sourceMap: true,
+            },
+          }],
+        }),
+      },
+      {
+        test: /\.scss$/,
+        loader: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: [
+            {
+              loader: 'css-loader',
+              options: {
+                sourceMap: true,
+              },
+            },
+            {
+              loader: 'postcss-loader',
+            },
+          ],
+        }),
+      },
+    ],
+  }
 };
 
-module.exports = Object.assign(config, devConfig);
+module.exports = mergeConfigs(config, devConfig);

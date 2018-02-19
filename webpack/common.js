@@ -4,8 +4,6 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 const rootDir = join(__dirname, '../');
 
-const getPostCSSPlugins = require(join(rootDir, '.postcss'));
-
 module.exports = {
   entry: {
     /*
@@ -15,13 +13,10 @@ module.exports = {
     'demo-feature': join(rootDir, './src/demo-feature/'),
   },
   module: {
-    loaders: [
+    rules: [
       {
         test: /\.js$/,
-        loader: 'babel',
-        query: {
-          presets: ['es2015', 'stage-0'],
-        },
+        loader: 'babel-loader',
         exclude: /node_modules/,
       },
     ],
@@ -37,18 +32,15 @@ module.exports = {
       DEV_ENV: process.env.NODE_ENV === 'development',
     }),
     new webpack.EnvironmentPlugin(['NODE_ENV']),
-    new ExtractTextPlugin('./[name].css', {
-        allChunks: true,
+    new ExtractTextPlugin({
+      filename: './[name].css',
+      allChunks: true,
     }),
   ],
   resolve: {
-    extensions: ['', '.js'],
+    extensions: ['.js'],
     alias: {
       src: join(rootDir, './src'),
     },
   },
-  resolveLoader: {
-    modulesDirectories: [join(rootDir, 'node_modules')],
-  },
-  postcss: getPostCSSPlugins,
 };

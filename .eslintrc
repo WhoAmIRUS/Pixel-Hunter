@@ -1,9 +1,14 @@
 {
   "env": {
-    "browser": true,
-    "node": true,
+    "browser": true
   },
-  "extends": "airbnb",
+  "extends": [
+    "airbnb",
+    "prettier"
+  ],
+  "plugins": [
+    "prettier"
+  ],
   "parser": "babel-eslint",
   "parserOptions": {
     "ecmaFeatures": {
@@ -11,6 +16,10 @@
     }
   },
   "rules": {
+    "prettier/prettier": ["error", {
+      "singleQuote": true,
+      "trailingComma": "all"
+    }],
     "react/prop-types": 0,
     "import/imports-first": 0,
 
