@@ -10,9 +10,11 @@ const prodConfig = {
         test: /\.css$/,
         loader: ExtractTextPlugin.extract({
           fallback: 'style-loader',
-          use: [{
-            loader: 'css-loader',
-          }],
+          use: [
+            {
+              loader: 'css-loader',
+            },
+          ],
         }),
       },
       {
@@ -38,10 +40,6 @@ const prodConfig = {
         booleans: false,
         unused: false,
       },
-    }),
-    new ExtractTextPlugin({
-      filename: './[name].css',
-      allChunks: true,
     }),
   ],
 };

@@ -1,3 +1,4 @@
+/* eslint-disable consistent-return */
 const isArray = require('lodash/isArray');
 const mergeWith = require('lodash/mergeWith');
 

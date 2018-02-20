@@ -1,4 +1,4 @@
-const join = require('path').join;
+const { join } = require('path');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const mergeConfigs = require('./utils/mergeConfigs');
 const config = require('./common');
@@ -18,12 +18,14 @@ const devConfig = {
         test: /\.css$/,
         loader: ExtractTextPlugin.extract({
           fallback: 'style-loader',
-          use: [{
-            loader: 'css-loader',
-            options: {
-              sourceMap: true,
+          use: [
+            {
+              loader: 'css-loader',
+              options: {
+                sourceMap: true,
+              },
             },
-          }],
+          ],
         }),
       },
       {
@@ -44,7 +46,7 @@ const devConfig = {
         }),
       },
     ],
-  }
+  },
 };
 
 module.exports = mergeConfigs(config, devConfig);

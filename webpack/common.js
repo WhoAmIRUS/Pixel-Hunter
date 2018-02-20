@@ -1,4 +1,4 @@
-const join = require('path').join;
+const { join } = require('path');
 const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
