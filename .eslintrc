@@ -16,10 +16,7 @@
     }
   },
   "rules": {
-    "prettier/prettier": ["error", {
-      "singleQuote": true,
-      "trailingComma": "all"
-    }],
+    "prettier/prettier": 2,
     "react/prop-types": 0,
     "import/imports-first": 0,
 

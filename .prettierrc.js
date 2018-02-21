@@ -1,4 +1,12 @@
 module.exports = {
   singleQuote: true,
-  trailingComma: 'all',
+  trailingComma: 'es5',
+  overrides: [
+    {
+      files: 'src/**/*.js',
+      options: {
+        trailingComma: 'all',
+      },
+    },
+  ],
 };

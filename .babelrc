@@ -3,8 +3,8 @@
     ["env", {
       "targets": {
         "browsers": ["last 2 versions", "IE >= 11"]
-      }
-    }],
-    "stage-3"
+      },
+      "modules": false
+    }]
   ]
 }
