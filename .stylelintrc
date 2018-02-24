@@ -1,5 +1,8 @@
 {
   "extends": "stylelint-config-standard",
+  "plugins": [
+    "stylelint-order"
+  ],
   "rules": {
     "number-leading-zero": null,
 
@@ -10,11 +13,11 @@
       true,
       {
         "ignoreProperties": [
-          "/^lost-/",
+          "/^lost-/"
         ]
       }
     ],
-    "declaration-block-properties-order": [
+    "order/properties-order": [
       "-moz-osx-font-smoothing",
       "-webkit-font-smoothing",
       "/^lost-/",
@@ -187,7 +190,7 @@
       "animation-timing-function",
       "animation-delay",
       "animation-iteration-count",
-      "animation-direction",
-    ],
+      "animation-direction"
+    ]
   }
 }

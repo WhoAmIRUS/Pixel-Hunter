@@ -1,35 +1,47 @@
 const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const mergeConfigs = require('./utils/mergeConfigs');
 const config = require('./common');
 
-const prodPlugins = [
-  new webpack.optimize.UglifyJsPlugin({
-    compress: {
-      warnings: false,
-      booleans: false,
-      unused: false,
-    },
-  }),
-  new webpack.optimize.DedupePlugin(),
-];
 const prodConfig = {
-  devtool: 'source-map',
-  module: Object.assign(
-    config.module,
-    {
-      loaders: config.module.loaders.concat([
-        {
-          test: /\.css$/,
-          loader: ExtractTextPlugin.extract('style', 'css?-url'),
-        },
-        {
-          test: /\.scss$/,
-          loader: ExtractTextPlugin.extract('style', 'css?-url!postcss'),
-        },
-      ]),
-    }
-  ),
-  plugins: prodPlugins.concat(config.plugins),
+  module: {
+    rules: [
+      {
+        test: /\.css$/,
+        loader: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: [
+            {
+              loader: 'css-loader',
+            },
+          ],
+        }),
+      },
+      {
+        test: /\.scss$/,
+        loader: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: [
+            {
+              loader: 'css-loader',
+            },
+            {
+              loader: 'postcss-loader',
+            },
+          ],
+        }),
+      },
+    ],
+  },
+  plugins: [
+    new webpack.optimize.UglifyJsPlugin({
+      compress: {
+        warnings: false,
+        booleans: false,
+        unused: false,
+      },
+    }),
+  ],
 };
 
-module.exports = Object.assign(config, prodConfig);
+module.exports = mergeConfigs(config, prodConfig);

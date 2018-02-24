@@ -43,7 +43,7 @@ CSS styleguide is enforced via [stylelint PostCSS plugin](https://github.com/sty
 
 PostCSS plugins we're using:
 
-* [postcss-smart-import](https://github.com/sebastian-software/postcss-smart-import)
+* [postcss-import](https://github.com/postcss/postcss-import)
 * [postcss-normalize](https://github.com/seaneking/postcss-normalize)
 * [precss](https://github.com/jonathantneal/precss)
 * [cssnext](https://github.com/MoOx/postcss-cssnext)
@@ -52,7 +52,6 @@ PostCSS plugins we're using:
 * [css-mqpacker](https://github.com/hail2u/node-css-mqpacker)
 * [lost](https://github.com/peterramsing/lost)
 * [postcss-csso](https://github.com/lahmatiy/postcss-csso)
-* [stylelint](https://github.com/stylelint/stylelint)
 * [postcss-browser-reporter](https://github.com/postcss/postcss-browser-reporter)
 
 
