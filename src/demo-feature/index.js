@@ -1,4 +1,4 @@
-import './index.scss';
+import './index.pcss';
 import * as demoFeature from './demoFeature';
 
 demoFeature.logConsoleMsg('Hi, console!');

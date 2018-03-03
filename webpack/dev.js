@@ -29,7 +29,7 @@ const devConfig = {
         }),
       },
       {
-        test: /\.scss$/,
+        test: /\.pcss$/,
         loader: ExtractTextPlugin.extract({
           fallback: 'style-loader',
           use: [

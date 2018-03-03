@@ -11,12 +11,7 @@ After that use:
 * `yarn dev` - to run webpack-dev-server for local development
 * `yarn build` - to get a final bundle with source-map in `/build/` folder
 
-After installing dependencies, please run `bin/install-git-hooks.sh`.
-This comand will install [git pre-commit hook](https://git-scm.com/book/gr/v2/Customizing-Git-Git-Hooks) into your local git repository.
-This hook will check before each commit if your JS- and CSS- changes are comply to our styleguides.
-If they're not - you'll see a list of error and warnings, and your commit will not be accepted by git, until you'd fix all of them.
-
-We're also have `.editorconfig` file in our repository, which is a great way to sync whitespace settings across team members.
+We're have `.editorconfig` file in our repository, which is a great way to sync whitespace settings across team members.
 Please install editorconfig plugin from "Download a Plugin" section of [editorconfig official site](http://editorconfig.org/).
 
 ## Preview your final bundle in `/build`
@@ -34,12 +29,12 @@ Use CLI to enter `/build` folder, then launch your command. After that you'll be
 ## Technology
 #### JS
 JavaScript ES6+ with code styleguide mostly based on [Airbnb JS](https://github.com/airbnb/javascript) and [Airbnb React](https://github.com/airbnb/javascript/tree/master/react).
-JS stylguide is enforced via [ESLint linter](http://eslint.org/) called in [git pre-commit hook](https://git-scm.com/book/gr/v2/Customizing-Git-Git-Hooks).
+JS stylguide is enforced via [ESLint linter](http://eslint.org/) called in precommit.
 
 #### CSS
 PostCSS with plugins with css styleguide mostly based on [stylelint-config-standard](https://github.com/stylelint/stylelint-config-standard) with custom css-rules order (based on best practices from HTMLAcademy and others - you can look at it in `.eslintrc` file).
 CSS styleguide is enforced via [stylelint PostCSS plugin](https://github.com/stylelint/stylelint/blob/master/docs/user-guide/postcss-plugin.md) and reported right on a webpage were compiled styles used (in body::before);
-`stylelint` itself are also called in [git pre-commit hook](https://git-scm.com/book/gr/v2/Customizing-Git-Git-Hooks).
+`stylelint` itself are also called in precommit.
 
 PostCSS plugins we're using:
 
