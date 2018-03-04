@@ -6,9 +6,7 @@
       "git add"
     ],
     "src/**/*.pcss": [
-      "prettier --write",
-      "stylelint",
-      "git add"
+      "stylelint"
     ]
   }
 }
