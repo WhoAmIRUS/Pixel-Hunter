@@ -34,7 +34,6 @@ module.exports = function(postcss) {
   }
 
   return {
-    parser: 'postcss-scss',
     plugins: postCSSPluginsArray,
   };
 };
