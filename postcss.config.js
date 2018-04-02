@@ -2,6 +2,7 @@ const postcssImport = require('postcss-import');
 const precss = require('precss');
 const short = require('postcss-short');
 const hoverFocus = require('postcss-focus');
+const mixins = require('postcss-mixins');
 const cssnext = require('postcss-cssnext');
 const lostGrid = require('lost');
 const cssMqpacker = require('css-mqpacker');
@@ -13,7 +14,8 @@ const NODE_ENV = process.env.NODE_ENV || 'development';
 
 module.exports = function(postcss) {
   const postCSSPluginsArray = [
-    postcssImport({ addDependencyTo: postcss }),
+    postcssImport({ addDependencyTo: postcss, path: ["static"] }),
+    mixins,
     precss,
     short,
     hoverFocus,

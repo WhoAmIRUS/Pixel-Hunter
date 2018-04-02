@@ -8,7 +8,7 @@ const rootDir = join(__dirname, '../');
 const devConfig = {
   devtool: 'eval',
   devServer: {
-    contentBase: join(rootDir, 'static'),
+    contentBase: [join(rootDir, 'static'), join(rootDir, 'src/demo-feature')],
     host: '0.0.0.0',
     port: 8000,
   },

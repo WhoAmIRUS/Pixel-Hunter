@@ -1,0 +1,31 @@
+@import "fonts.pcss";
+@import "colors.pcss";
+
+.footer {
+  display: flex;
+  margin-top: 50px;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.footer__made-in {
+  display: block;
+  margin-top: 5px;
+  margin-bottom: 15px;
+
+  @add-mixin small-text;
+}
+
+.footer__link {
+  @add-mixin small-text;
+
+  &:hover {
+    color: $link-hover-color;
+  }
+
+  &:active {
+    color: $link-active-color;
+  }
+}

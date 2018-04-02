@@ -1,11 +1,34 @@
-$brandcolor: #ffe288;
+@import "central.pcss";
+@import "colors.pcss";
+@import "fonts.pcss";
+@import "footer.pcss";
+@import "game.pcss";
+@import "greeting.pcss";
+@import "header.pcss";
+@import "intro.pcss";
+@import "result.pcss";
+@import "rules.pcss";
+@import "social.pcss";
+@import "stats.pcss";
 
-@font-face {
-  font-family: 'RobotoBoldItalic';
-  src: url(/fonts/roboto-bold-italic.woff2) format('woff2');
+html {
+  min-height: 100%;
+  padding: 0;
+  margin: 0;
 }
 
 body {
-  font-family: 'RobotoBoldItalic', sans-serif;
-  background: $brandcolor;
+  min-height: 100%;
+  color: $main-font-color;
+  background: #a8c8c4 linear-gradient(to bottom left, #ccdeeb, #84b39e) no-repeat;
+
+  @add-mixin regular-text;
+}
+
+a {
+  color: $main-font-color;
+}
+
+h1 {
+  color: red;
 }

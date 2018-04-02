@@ -5,7 +5,7 @@
   ],
   "rules": {
     "number-leading-zero": null,
-
+    "at-rule-no-unknown": null,
     "no-missing-end-of-source-newline": null,
     "block-no-empty": null,
     "no-empty-source": null,
