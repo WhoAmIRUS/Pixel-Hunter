@@ -1,2 +1,7 @@
 import './index.pcss';
-import './js/main';
+
+import { goToNextStep } from './js/main';
+import footerElement from './js/footer';
+
+goToNextStep();
+footerElement();

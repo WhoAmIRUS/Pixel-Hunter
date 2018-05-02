@@ -1,5 +1,5 @@
 const stateInfo = Object.freeze({
-  time: 0,
+  time: 30,
   lives: 3,
 });
 

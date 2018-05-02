@@ -1,6 +1,6 @@
 import _ from '../../../node_modules/lodash';
 import getElementFromTemplate from './tempToElement';
-import resultInfo from './resultInfo';
+import resultInfo, { stopTimer } from './resultInfo';
 import { goToStart } from './main';
 
 const headerTemplate = (data, isFullHeader) =>
@@ -37,8 +37,10 @@ function init(isFullHeader) {
   const headerBack = headerElement.querySelector('.header__back');
   headerBack.addEventListener('click', () => {
     document.querySelector('#block__header').innerHTML = ``;
+    stopTimer();
     goToStart();
   });
+  return headerElement;
 }
 
 export default init;

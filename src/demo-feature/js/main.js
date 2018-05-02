@@ -1,19 +1,15 @@
 import introElement from './intro';
 import greetingElement from './greeting';
 import rulesElement from './rules';
-import gameOneElement from './gameOne';
-import footerElement from './footer';
-import gameTwoTemplate from './gameTwo';
-import gameThreeTemplate from './gameThree';
+import gameElement, { goToStartGame } from './game';
 import statsElement from './stats';
+import { reestablishResultInfo } from './resultInfo';
 
 export const stepsArr = [
   introElement,
   greetingElement,
   rulesElement,
-  gameOneElement,
-  gameTwoTemplate,
-  gameThreeTemplate,
+  gameElement,
   statsElement,
 ];
 
@@ -23,14 +19,20 @@ export const gameArr = [
     task: `Угадайте для каждого изображения фото или рисунок?`,
     items: [
       {
-        image: 'http://placehold.it/468x458',
-        width: 468,
-        height: 458,
+        image: {
+          url: 'http://placehold.it/468x458',
+          width: 468,
+          height: 458,
+        },
+        type: 'paint',
       },
       {
-        image: 'http://placehold.it/468x458',
-        width: 468,
-        height: 458,
+        image: {
+          url: 'http://placehold.it/468x458',
+          width: 468,
+          height: 458,
+        },
+        type: 'photo',
       },
     ],
   },
@@ -39,9 +41,12 @@ export const gameArr = [
     task: `Угадай, фото или рисунок?`,
     items: [
       {
-        image: 'http://placehold.it/705x455',
-        width: 705,
-        height: 455,
+        image: {
+          url: 'http://placehold.it/705x455',
+          width: 705,
+          height: 455,
+        },
+        type: 'photo',
       },
     ],
   },
@@ -50,19 +55,58 @@ export const gameArr = [
     task: `Найдите рисунок среди изображений`,
     items: [
       {
-        image: 'http://placehold.it/304x455',
-        width: 304,
-        height: 455,
+        image: {
+          url: 'http://placehold.it/304x455',
+          width: 705,
+          height: 455,
+        },
+        type: 'photo',
       },
       {
-        image: 'http://placehold.it/304x455',
-        width: 304,
-        height: 455,
+        image: {
+          url: 'http://placehold.it/304x455',
+          width: 705,
+          height: 455,
+        },
+        type: 'photo',
       },
       {
-        image: 'http://placehold.it/304x455',
-        width: 304,
-        height: 455,
+        image: {
+          url: 'http://placehold.it/304x455',
+          width: 705,
+          height: 455,
+        },
+        type: 'painting',
+      },
+    ],
+  },
+  {
+    type: `one-of-three`,
+    task: `Найдите рисунок среди изображений`,
+    items: [
+      {
+        image: {
+          url: 'http://placehold.it/304x455',
+          width: 705,
+          height: 455,
+        },
+        type: 'painting',
+      },
+      {
+        image: {
+          url: 'http://placehold.it/304x455',
+          width: 705,
+          height: 455,
+        },
+        type: 'painting',
+      },
+      {
+        image: {
+          url: 'http://placehold.it/304x455',
+          width: 705,
+          height: 455,
+        },
+        type: 'photo',
       },
     ],
   },
@@ -71,16 +115,24 @@ export const gameArr = [
 let currentStep = 0;
 
 function goToNextStep() {
-  console.log(currentStep);
   stepsArr[currentStep](goToNextStep);
   currentStep += 1;
 }
 
-export function goToStart() {
+function goToStart() {
+  reestablishResultInfo();
   currentStep = 0;
+  goToStartGame();
   stepsArr[currentStep](goToNextStep);
   currentStep += 1;
 }
 
-goToNextStep();
-footerElement();
+function goToFinal() {
+  if (stepsArr.indexOf(statsElement) === -1) {
+    throw new Error('No stepsElement in stepsArr');
+  } else {
+    currentStep = stepsArr.indexOf(statsElement);
+  }
+}
+
+export { goToFinal, goToStart, goToNextStep, currentStep };
