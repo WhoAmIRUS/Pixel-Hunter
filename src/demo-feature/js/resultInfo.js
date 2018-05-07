@@ -5,21 +5,17 @@ import { goToNextGame } from './game';
 const resultInfo = Object.assign({}, stateInfo);
 let timer;
 
-export function decreaseLives(info) {
-  const newInfo = Object.assign({}, info, {
+export function decreaseLives(info = resultInfo) {
+  Object.assign(info, {
     lives: info.lives - 1,
   });
-  if (newInfo.lives < 0) {
+  if (info.lives < 0) {
     throw new Error(`Can't be negative lives`);
   }
-  if (newInfo.lives === 0) {
+  if (info.lives === 0) {
     goToFinal();
   }
-  return newInfo;
-}
-
-export function decreaseResultInfoLives() {
-  Object.assign(resultInfo, decreaseLives(resultInfo));
+  return info;
 }
 
 export function reestablishResultInfo() {
@@ -35,23 +31,20 @@ export function stopTimer() {
   }
 }
 
-export function decreaseTime(info, startDate) {
+export function decreaseTime(startDate, info = resultInfo) {
   const currentDate = Date.now();
-  const newInfo = Object.assign({}, info, {
+  Object.assign(info, {
     time: stateInfo.time - Math.ceil((currentDate - startDate) / 1000),
   });
-  if (newInfo.time < 0) {
+  if (info.time < 0) {
     throw new Error(`Can't be negative time`);
   }
-  if (newInfo.time === 0) {
+  if (info.time === 0) {
     stopTimer();
+    decreaseLives();
     goToNextGame();
   }
-  return newInfo;
-}
-
-export function decreaseResultInfoTime(startDate) {
-  Object.assign(resultInfo, decreaseTime(resultInfo, startDate));
+  return info;
 }
 
 export function startTimer(domHeaderElement) {
@@ -61,7 +54,7 @@ export function startTimer(domHeaderElement) {
   }
   const startDate = Date.now();
   timer = setInterval(() => {
-    decreaseResultInfoTime(startDate);
+    decreaseTime(startDate);
     gameTimer.innerHTML = resultInfo.time;
   }, 500);
 }

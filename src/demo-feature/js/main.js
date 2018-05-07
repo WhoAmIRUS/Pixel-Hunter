@@ -4,6 +4,7 @@ import rulesElement from './rules';
 import gameElement, { goToStartGame } from './game';
 import statsElement from './stats';
 import { reestablishResultInfo } from './resultInfo';
+import { reestablishResultStats } from './resultStats';
 
 export const stepsArr = [
   introElement,
@@ -121,6 +122,7 @@ function goToNextStep() {
 
 function goToStart() {
   reestablishResultInfo();
+  reestablishResultStats();
   currentStep = 0;
   goToStartGame();
   stepsArr[currentStep](goToNextStep);
@@ -132,6 +134,7 @@ function goToFinal() {
     throw new Error('No stepsElement in stepsArr');
   } else {
     currentStep = stepsArr.indexOf(statsElement);
+    goToNextStep();
   }
 }
 

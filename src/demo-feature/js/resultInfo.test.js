@@ -1,22 +1,28 @@
 import assert from 'assert';
 import sinon from 'sinon';
 import { describe, it } from 'mocha';
-import resultInfo, { decreaseLives, decreaseTime } from './resultInfo';
+import resultInfo, {
+  decreaseLives,
+  decreaseTime,
+  reestablishResultInfo,
+} from './resultInfo';
 import { currentGame, goToStartGame } from './game';
 import './dom.test';
 
 function setZeroTime(clock, startTime, testInfo) {
-  Object.assign(testInfo, decreaseTime(resultInfo, startTime));
+  Object.assign(testInfo, resultInfo);
   while (testInfo.time > 0) {
     clock.tick(1000);
-    Object.assign(testInfo, decreaseTime(testInfo, startTime));
+    Object.assign(testInfo, decreaseTime(startTime, testInfo));
   }
 }
 
 describe(`Game`, () => {
   describe(`Character lives`, () => {
     it(`should decrease lives`, () => {
-      assert.equal(resultInfo.lives - 1, decreaseLives(resultInfo).lives);
+      const info = Object.assign({}, resultInfo);
+      decreaseLives(info);
+      assert.equal(resultInfo.lives - 1, info.lives);
     });
     it(`start lives equal 3`, () => {
       assert.equal(resultInfo.lives, 3);
@@ -27,10 +33,9 @@ describe(`Game`, () => {
       const clock = sinon.useFakeTimers();
       const startTime = Date.now();
       clock.tick(1000);
-      assert.equal(
-        resultInfo.time - 1,
-        decreaseTime(resultInfo, startTime).time,
-      );
+      const info = Object.assign({}, resultInfo);
+      decreaseTime(startTime, info);
+      assert.equal(resultInfo.time - 1, info.time);
       clock.restore();
     });
     it(`start time equal 30`, () => {
@@ -45,6 +50,32 @@ describe(`Game`, () => {
       const testInfo = {};
       setZeroTime(clock, startTime, testInfo);
       assert.equal(currentGame, stepIndex + 1);
+      clock.restore();
+    });
+    it(`decrease lives when time == 0`, () => {
+      goToStartGame();
+      const clock = sinon.useFakeTimers();
+      const startTime = Date.now();
+      const lives = resultInfo.lives;
+      const testInfo = {};
+      setZeroTime(clock, startTime, testInfo);
+      assert.equal(resultInfo.lives, lives - 1);
+      clock.restore();
+    });
+    it(`decrease lives when time == 0 (double)`, () => {
+      reestablishResultInfo();
+      goToStartGame();
+      let clock = sinon.useFakeTimers();
+      let startTime = Date.now();
+      const lives = resultInfo.lives;
+      let testInfo = {};
+      setZeroTime(clock, startTime, testInfo);
+      clock.restore();
+      clock = sinon.useFakeTimers();
+      startTime = Date.now();
+      testInfo = {};
+      setZeroTime(clock, startTime, testInfo);
+      assert.equal(resultInfo.lives, lives - 2);
       clock.restore();
     });
   });

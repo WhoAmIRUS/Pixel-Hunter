@@ -1,7 +1,7 @@
 import getElementFromTemplate from './tempToElement';
 import gameTemplate from './gameTemplate';
 import { gameArr, goToNextStep } from './main';
-import { decreaseResultInfoLives, startTimer, stopTimer } from './resultInfo';
+import resultInfo, { decreaseLives, startTimer, stopTimer } from './resultInfo';
 import headerElement from './header';
 import { increaseStats, timeStats } from './resultStats';
 
@@ -22,6 +22,7 @@ function goToStartGame() {
 export { goToStartGame, goToNextGame, currentGame };
 
 function initGame() {
+  if (resultInfo.lives === 0) return;
   if (currentGame === gameArr.length) {
     stopTimer();
     goToNextStep();
@@ -48,8 +49,8 @@ function initGame() {
                 gameArr[currentGame].items[i].type !==
                 gameCheckedElements[i].value
               ) {
-                decreaseResultInfoLives();
                 increaseStats(`wrong`);
+                decreaseLives();
                 goToNextGame();
                 return;
               }
@@ -69,8 +70,8 @@ function initGame() {
             if (
               gameArr[currentGame].items[0].type !== gameCheckedElement.value
             ) {
-              decreaseResultInfoLives();
               increaseStats(`wrong`);
+              decreaseLives();
             } else {
               increaseStats(`correct`);
               timeStats();
@@ -84,8 +85,8 @@ function initGame() {
       gameOption.forEach((item, index) => {
         item.addEventListener('click', () => {
           if (gameArr[currentGame].items[index].type !== 'painting') {
-            decreaseResultInfoLives();
             increaseStats(`wrong`);
+            decreaseLives();
           } else {
             increaseStats(`correct`);
             timeStats();

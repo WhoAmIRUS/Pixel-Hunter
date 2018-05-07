@@ -20,4 +20,8 @@ export function timeStats(stats = resultStats, info = resultInfo) {
   return increaseStats(statsValue, stats);
 }
 
+export function reestablishResultStats() {
+  Object.assign(resultStats, stateStats);
+}
+
 export default resultStats;
