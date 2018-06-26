@@ -1,18 +1,59 @@
-import introElement from './intro';
-import greetingElement from './greeting';
-import rulesElement from './rules';
-import gameElement, { goToStartGame } from './game';
-import statsElement from './stats';
-import { reestablishResultInfo } from './resultInfo';
+import Intro from './intro/intro';
+import Greeting from './greeting/greeting';
+import Rules from './rules/rules';
+import Game from './game/game';
+import Stats from './stats/stats';
+import { reestablishResultInfo, stopTimer } from './resultInfo';
 import { reestablishResultStats } from './resultStats';
 
-export const stepsArr = [
-  introElement,
-  greetingElement,
-  rulesElement,
-  gameElement,
-  statsElement,
-];
+const ControllerID = {
+  Intro: ``,
+  Greeting: `greeting`,
+  Rules: `rules`,
+  Game: `game`,
+  Stats: `stats`,
+};
+
+const getControllerIdFromHash = hash => hash.replace('#', '');
+
+export default class Application {
+  constructor() {
+    this.routes = {
+      [ControllerID.Intro]: Intro,
+      [ControllerID.Greeting]: Greeting,
+      [ControllerID.Rules]: Rules,
+      [ControllerID.Game]: Game,
+      [ControllerID.Stats]: Stats,
+    };
+    window.onhashchange = () => {
+      this.changeController(getControllerIdFromHash(window.location.hash));
+    };
+  }
+  changeController(route = ``) {
+    stopTimer();
+    new this.routes[route]().init();
+  }
+  init() {
+    this.changeController(getControllerIdFromHash(window.location.hash));
+  }
+  static showIntro() {
+    window.location.hash = ControllerID.Intro;
+  }
+  static showGreeting() {
+    window.location.hash = ControllerID.Greeting;
+  }
+  static showRules() {
+    window.location.hash = ControllerID.Rules;
+  }
+  static showGame() {
+    reestablishResultStats();
+    reestablishResultInfo();
+    window.location.hash = ControllerID.Game;
+  }
+  static showStats() {
+    window.location.hash = ControllerID.Stats;
+  }
+}
 
 export const gameArr = [
   {
@@ -113,29 +154,12 @@ export const gameArr = [
   },
 ];
 
-let currentStep = 0;
-
-function goToNextStep() {
-  stepsArr[currentStep](goToNextStep);
-  currentStep += 1;
-}
-
 function goToStart() {
-  reestablishResultInfo();
-  reestablishResultStats();
-  currentStep = 0;
-  goToStartGame();
-  stepsArr[currentStep](goToNextStep);
-  currentStep += 1;
+  Application.showIntro();
 }
 
 function goToFinal() {
-  if (stepsArr.indexOf(statsElement) === -1) {
-    throw new Error('No stepsElement in stepsArr');
-  } else {
-    currentStep = stepsArr.indexOf(statsElement);
-    goToNextStep();
-  }
+  Application.showStats();
 }
 
-export { goToFinal, goToStart, goToNextStep, currentStep };
+export { goToFinal, goToStart };

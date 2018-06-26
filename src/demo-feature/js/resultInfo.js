@@ -1,6 +1,5 @@
 import stateInfo from './stateInfo';
 import { goToFinal } from './main';
-import { goToNextGame } from './game';
 
 const resultInfo = Object.assign({}, stateInfo);
 let timer;
@@ -30,7 +29,6 @@ export function stopTimer() {
     });
   }
 }
-
 export function decreaseTime(startDate, info = resultInfo) {
   const currentDate = Date.now();
   Object.assign(info, {
@@ -41,12 +39,9 @@ export function decreaseTime(startDate, info = resultInfo) {
   }
   if (info.time === 0) {
     stopTimer();
-    decreaseLives();
-    goToNextGame();
   }
   return info;
 }
-
 export function startTimer(domHeaderElement) {
   const gameTimer = domHeaderElement.querySelector('.game__timer');
   if (!gameTimer) {

@@ -6,11 +6,10 @@ import resultInfo, {
   decreaseTime,
   reestablishResultInfo,
 } from './resultInfo';
-import { currentGame, goToStartGame } from './game';
-import './dom.test';
+import Game from './game/game';
+import { gameArr } from './main';
 
 function setZeroTime(clock, startTime, testInfo) {
-  Object.assign(testInfo, resultInfo);
   while (testInfo.time > 0) {
     clock.tick(1000);
     Object.assign(testInfo, decreaseTime(startTime, testInfo));
@@ -43,28 +42,26 @@ describe(`Game`, () => {
     });
 
     it(`next game step when time == 0`, () => {
-      goToStartGame();
+      const game = new Game();
       const clock = sinon.useFakeTimers();
       const startTime = Date.now();
-      const stepIndex = currentGame;
+      const stepIndex = gameArr.indexOf(game.currentGame);
       const testInfo = {};
       setZeroTime(clock, startTime, testInfo);
-      assert.equal(currentGame, stepIndex + 1);
+      assert.equal(gameArr.indexOf(game.currentGame), stepIndex + 1);
       clock.restore();
     });
     it(`decrease lives when time == 0`, () => {
-      goToStartGame();
       const clock = sinon.useFakeTimers();
       const startTime = Date.now();
       const lives = resultInfo.lives;
       const testInfo = {};
       setZeroTime(clock, startTime, testInfo);
       assert.equal(resultInfo.lives, lives - 1);
+      reestablishResultInfo();
       clock.restore();
     });
     it(`decrease lives when time == 0 (double)`, () => {
-      reestablishResultInfo();
-      goToStartGame();
       let clock = sinon.useFakeTimers();
       let startTime = Date.now();
       const lives = resultInfo.lives;
@@ -77,6 +74,7 @@ describe(`Game`, () => {
       setZeroTime(clock, startTime, testInfo);
       assert.equal(resultInfo.lives, lives - 2);
       clock.restore();
+      reestablishResultInfo();
     });
   });
 });

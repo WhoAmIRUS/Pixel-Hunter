@@ -1,5 +1,6 @@
 import assert from 'assert';
 import { describe, it } from 'mocha';
+import Game from './game/game';
 import resultStats, { increaseStats, timeStats } from './resultStats';
 import resultInfo from './resultInfo';
 

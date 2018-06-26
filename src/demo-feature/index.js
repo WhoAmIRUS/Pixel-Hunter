@@ -1,7 +1,6 @@
 import './index.pcss';
+import Footer from './js/footer';
+import Application from './js/main';
 
-import { goToNextStep } from './js/main';
-import footerElement from './js/footer';
-
-goToNextStep();
-footerElement();
+new Application().init();
+new Footer().init();

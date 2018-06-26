@@ -1,7 +1,7 @@
 import jsdom from 'jsdom';
 import assert from 'assert';
 import { describe, it } from 'mocha';
-import statsElement from './stats';
+import Stats from './stats/stats';
 import resultStats, {
   increaseStats,
   reestablishResultStats,
@@ -23,63 +23,62 @@ global.document = dom.window.document;
 describe(`DOM stats`, () => {
   describe(`Calc correct answers`, () => {
     it(`Calc correct >= 0`, () => {
-      reestablishResultStats();
       for (let i = 0; i < 10; i++) {
         increaseStats(`correct`);
-        statsElement();
+        new Stats().init();
         const res = resultStats.correct * 100;
         assert.equal(
           +document.querySelectorAll(`.result__total`)[0].innerHTML,
           res,
         );
       }
+      reestablishResultStats();
     });
   });
   describe(`Calc fast answers`, () => {
     it(`Calc fast >= 0`, () => {
-      reestablishResultStats();
       for (let i = 0; i < 10; i++) {
         increaseStats(`fast`);
-        statsElement();
+        new Stats().init();
         const res = resultStats.fast * 50;
         assert.equal(
           +document.querySelectorAll(`.result__total`)[1].innerHTML,
           res,
         );
       }
+      reestablishResultStats();
     });
   });
   describe(`Calc lives answers`, () => {
     it(`Calc lives <= 3`, () => {
-      reestablishResultInfo();
-      for (let i = 0; i < resultInfo.lives; i++) {
+      while (resultInfo.lives) {
         decreaseLives();
-        statsElement();
+        new Stats().init();
         const res = resultInfo.lives * 50;
         assert.equal(
           +document.querySelectorAll(`.result__total`)[2].innerHTML,
           res,
         );
       }
+      reestablishResultInfo();
     });
   });
   describe(`Calc slow answers`, () => {
     it(`Calc slow >= 0`, () => {
-      reestablishResultStats();
       for (let i = 0; i < 10; i++) {
         increaseStats(`slow`);
-        statsElement();
+        new Stats().init();
         const res = resultStats.slow * 50;
         assert.equal(
           +document.querySelectorAll(`.result__total`)[3].innerHTML,
           -res,
         );
       }
+      reestablishResultStats();
     });
   });
   describe(`Calc total answers`, () => {
     it(`Calc random total`, () => {
-      reestablishResultStats();
       for (let i = 0; i < 10; i++) {
         switch (Math.floor(Math.random() * (4 - 1)) + 1) {
           case 1:
@@ -101,11 +100,13 @@ describe(`DOM stats`, () => {
         resultStats.fast * 50 +
         resultInfo.lives * 50 -
         resultStats.slow * 50;
-      statsElement();
+      new Stats(resultInfo, resultStats).init();
       assert.equal(
         +document.querySelectorAll(`.result__total--final`)[0].innerHTML,
         res,
       );
+      reestablishResultStats();
+      reestablishResultInfo();
     });
   });
 });
