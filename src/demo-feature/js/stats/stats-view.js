@@ -4,13 +4,9 @@ import resultInfo from '../resultInfo';
 import resultStats from '../resultStats';
 
 export default class StatsView extends AbstractView {
-  constructor() {
+  constructor(titleMassage = `Win`) {
     super();
-    if (resultInfo.lives > 0) {
-      this.titleMassage = `Win`;
-    } else {
-      this.titleMassage = `Lose`;
-    }
+    this.titleMassage = titleMassage;
     this.template = `
     <div class="result">
       <h1>${this.titleMassage}</h1>

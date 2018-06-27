@@ -3,8 +3,8 @@ import Greeting from './greeting/greeting';
 import Rules from './rules/rules';
 import Game from './game/game';
 import Stats from './stats/stats';
-import { reestablishResultInfo, stopTimer } from './resultInfo';
-import { reestablishResultStats } from './resultStats';
+import resultInfo, { reestablishResultInfo, stopTimer } from './resultInfo';
+import resultStats, { reestablishResultStats } from './resultStats';
 
 const ControllerID = {
   Intro: ``,
@@ -31,6 +31,9 @@ export default class Application {
   }
   changeController(route = ``) {
     stopTimer();
+    if (route.indexOf('=') !== -1) {
+      route = route.slice(0, route.indexOf('='));
+    }
     new this.routes[route]().init();
   }
   init() {
@@ -51,6 +54,15 @@ export default class Application {
     window.location.hash = ControllerID.Game;
   }
   static showStats() {
+    ControllerID.Stats = [
+      ControllerID.Stats,
+      `=`,
+      resultStats.correct,
+      resultStats.fast,
+      resultInfo.lives,
+      resultStats.slow,
+      resultStats.wrong,
+    ].join('');
     window.location.hash = ControllerID.Stats;
   }
 }
