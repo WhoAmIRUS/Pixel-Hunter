@@ -11,9 +11,6 @@ export function decreaseLives(info = resultInfo) {
   if (info.lives < 0) {
     throw new Error(`Can't be negative lives`);
   }
-  if (info.lives === 0) {
-    goToFinal();
-  }
   return info;
 }
 

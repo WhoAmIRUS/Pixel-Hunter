@@ -1,4 +1,5 @@
 import AbstractView from '../view';
+import app from '../../index';
 
 export default class RulesView extends AbstractView {
   constructor() {
@@ -33,6 +34,7 @@ export default class RulesView extends AbstractView {
     });
     rulesButton.addEventListener('click', event => {
       event.preventDefault();
+      app.model.userName = rulesInput.value;
       this.onStart();
     });
   }

@@ -3,7 +3,11 @@ import GameView from './game_view';
 import { gameArr, goToFinal } from '../main';
 import Header from '../header/header';
 import { increaseStats, timeStats } from '../resultStats';
-import { decreaseLives, startTimer, stopTimer } from '../resultInfo';
+import resultInfo, {
+  decreaseLives,
+  startTimer,
+  stopTimer,
+} from '../resultInfo';
 
 export default class GamePresenter {
   constructor() {
@@ -11,7 +15,10 @@ export default class GamePresenter {
     this.view = new GameView(this.currentGame);
   }
   goToNextGame() {
-    if (gameArr.indexOf(this.currentGame) + 1 === gameArr.length) {
+    if (
+      gameArr.indexOf(this.currentGame) + 1 === gameArr.length ||
+      resultInfo.lives === 0
+    ) {
       goToFinal();
       return false;
     }
@@ -30,15 +37,15 @@ export default class GamePresenter {
           break;
         case `wrong`:
           GamePresenter.wrongAnswer();
+          //debugger;
           break;
         default:
-          new Error(`Strange type of answer`);
+          throw new Error(`Strange type of answer`);
       }
       if (this.goToNextGame()) this.init();
     };
   }
   static correctAnswer() {
-    increaseStats(`correct`);
     timeStats();
   }
   static wrongAnswer() {

@@ -12,9 +12,10 @@ export function timeStats(statsCopy = resultStats, info = resultInfo) {
   let statsValue;
   if (info.time >= stateInfo.time - 10) {
     statsValue = `fast`;
-  }
-  if (info.time <= stateInfo.time - 20) {
+  } else if (info.time <= stateInfo.time - 20) {
     statsValue = `slow`;
+  } else {
+    statsValue = `correct`;
   }
   return increaseStats(statsValue, statsCopy);
 }

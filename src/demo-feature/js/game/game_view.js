@@ -9,13 +9,12 @@ export default class GameView extends AbstractView {
     this.data = data;
     this.template = _.template(`
     <div class="game">
-    <p class="game__task">${data.task}</p>
+    <p class="game__task">${data.question}</p>
     <form class="game__content <% if (data.type == 'tinder-like') { %> game__content--wide <% } %>
                                <% if (data.type == 'one-of-three') { %> game__content--triple <% } %>">
-    <% for(let i = 1; i<=data.items.length; i++){ %>
+    <% for(let i = 1; i<=data.answers.length; i++){ %>
       <div class="game__option">
-        <img src="<%=data.items[i-1].image.url%>" alt="Option <%=i%>" width="<%=data.items[i-1].width%>" 
-                                                                  height="<%=data.items[i-1].height%>">
+        <img src="<%=data.answers[i-1].image.url%>" alt="Option <%=i%>" width="<%=data.answers[i-1].image.width%>">
         <% if (data.type !== 'one-of-three') {%>
         <label class="game__answer game__answer--photo">
           <input name="question<%=i%>" type="radio" value="photo">
@@ -44,9 +43,11 @@ export default class GameView extends AbstractView {
             const gameCheckedElements = this.element.querySelectorAll(
               'input:checked',
             );
-            if (gameCheckedElements.length === this.data.items.length) {
+            if (gameCheckedElements.length === this.data.answers.length) {
               for (let i = 0; i < gameCheckedElements.length; i += 1) {
-                if (this.data.items[i].type !== gameCheckedElements[i].value) {
+                if (
+                  this.data.answers[i].type !== gameCheckedElements[i].value
+                ) {
                   this.onAnswer(`wrong`);
                   return;
                 }
@@ -63,7 +64,7 @@ export default class GameView extends AbstractView {
               'input:checked',
             );
             if (item.querySelector('input').checked) {
-              if (this.data.items[0].type !== gameCheckedElement.value) {
+              if (this.data.answers[0].type !== gameCheckedElement.value) {
                 this.onAnswer(`wrong`);
               } else {
                 this.onAnswer(`correct`);
@@ -75,7 +76,7 @@ export default class GameView extends AbstractView {
       case 'one-of-three':
         gameOption.forEach((item, index) => {
           item.addEventListener('click', () => {
-            if (this.data.items[index].type !== 'painting') {
+            if (this.data.answers[index].type !== 'painting') {
               this.onAnswer(`wrong`);
             } else {
               this.onAnswer(`correct`);

@@ -7,6 +7,7 @@ import resultStats, {
   reestablishResultStats,
 } from './resultStats';
 import resultInfo, { decreaseLives, reestablishResultInfo } from './resultInfo';
+import { goToFinal } from './main';
 
 const { JSDOM } = jsdom;
 const dom = new JSDOM(
@@ -67,6 +68,7 @@ describe(`DOM stats`, () => {
     it(`Calc slow >= 0`, () => {
       for (let i = 0; i < 10; i++) {
         increaseStats(`slow`);
+        goToFinal();
         new Stats().init();
         const res = resultStats.slow * 50;
         assert.equal(
@@ -80,7 +82,7 @@ describe(`DOM stats`, () => {
   describe(`Calc total answers`, () => {
     it(`Calc random total`, () => {
       for (let i = 0; i < 10; i++) {
-        switch (Math.floor(Math.random() * (4 - 1)) + 1) {
+        switch (Math.floor(Math.random() * (5 - 1)) + 1) {
           case 1:
             increaseStats(`correct`);
             break;
@@ -100,7 +102,10 @@ describe(`DOM stats`, () => {
         resultStats.fast * 50 +
         resultInfo.lives * 50 -
         resultStats.slow * 50;
-      new Stats(resultInfo, resultStats).init();
+      new Stats().init();
+      console.log(
+        document.querySelectorAll(`.result__total--final`)[0].innerHTML,
+      );
       assert.equal(
         +document.querySelectorAll(`.result__total--final`)[0].innerHTML,
         res,
