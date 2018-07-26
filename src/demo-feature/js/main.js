@@ -1,3 +1,5 @@
+import 'babel-polyfill';
+
 import Intro from './intro/intro';
 import Greeting from './greeting/greeting';
 import Rules from './rules/rules';
@@ -70,20 +72,12 @@ export default class Application {
     }
     new this.routes[route]().init();
   }
-  init() {
+  async init() {
     showPreloader();
-    this.model
-      .load()
-      .then(data => {
-        gameArr = data.slice();
-      })
-      .then(() => removePreloader())
-      .then(() =>
-        this.changeController(getControllerIdFromHash(window.location.hash)),
-      )
-      .catch(() => {
-        throw new Error(`Request error`);
-      });
+    const data = await this.model.load();
+    gameArr = data.slice();
+    removePreloader();
+    this.changeController(getControllerIdFromHash(window.location.hash));
   }
   static showIntro() {
     window.location.hash = ControllerID.Intro;
@@ -117,13 +111,15 @@ function goToStart() {
   Application.showIntro();
 }
 
-function goToFinal() {
-  app.model.send(
+async function goToFinal() {
+  showPreloader();
+  await app.model.send(
     JSON.stringify({
       stats: resultStats,
       lives: resultInfo.lives,
     }),
   );
+  removePreloader();
   Application.showStats();
 }
 
