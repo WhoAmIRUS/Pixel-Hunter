@@ -1,5 +1,5 @@
 import stateInfo from './stateInfo';
-import { goToFinal } from './main';
+import Game from './game/game';
 
 const resultInfo = Object.assign({}, stateInfo);
 let timer;
@@ -36,6 +36,7 @@ export function decreaseTime(startDate, info = resultInfo) {
   }
   if (info.time === 0) {
     stopTimer();
+    Game.wrongAnswer();
   }
   return info;
 }

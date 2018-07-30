@@ -17,7 +17,10 @@ export default class StatsView extends AbstractView {
             ${statsTemplate(resultStats)}
           </td>
           <td class="result__points">×&nbsp;100</td>
-          <td class="result__total">${resultStats.correct * 100}</td>
+          <td class="result__total">${resultStats.correct * 100 +
+            resultStats.fast * 100 +
+            resultStats.slow * 100}
+          </td>
         </tr>
         <tr>
           <td></td>
@@ -49,8 +52,8 @@ export default class StatsView extends AbstractView {
         <tr>
           <td colspan="5" class="result__total  result__total--final">${resultStats.correct *
             100 +
-            resultStats.fast * 50 +
-            resultInfo.lives * 50 -
+            resultStats.fast * 150 +
+            resultInfo.lives * 50 +
             resultStats.slow * 50}</td>
         </tr>
       </table>

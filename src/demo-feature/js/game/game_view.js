@@ -21,7 +21,7 @@ export default class GameView extends AbstractView {
           <span>Фото</span>
         </label>
         <label class="game__answer <% if (data.type == 'tinder-like') { %> game__answer--wide <% } %> game__answer--paint">
-          <input name="question<%=i%>" type="radio" value="paint">
+          <input name="question<%=i%>" type="radio" value="painting">
           <span>Рисунок</span>
         </label>
         <% } %>
@@ -34,11 +34,11 @@ export default class GameView extends AbstractView {
     </div>`)({ data: this.data });
   }
   bind() {
-    const gameAnswer = this.element.querySelectorAll('.game__answer');
-    const gameOption = this.element.querySelectorAll('.game__option');
+    this.gameAnswer = this.element.querySelectorAll('.game__answer');
+    this.gameOption = this.element.querySelectorAll('.game__option');
     switch (this.data.type) {
       case 'two-of-two':
-        gameAnswer.forEach(item => {
+        this.gameAnswer.forEach(item => {
           item.addEventListener('change', () => {
             const gameCheckedElements = this.element.querySelectorAll(
               'input:checked',
@@ -58,7 +58,7 @@ export default class GameView extends AbstractView {
         });
         break;
       case 'tinder-like':
-        gameAnswer.forEach(item => {
+        this.gameAnswer.forEach(item => {
           item.addEventListener('change', () => {
             const gameCheckedElement = this.element.querySelector(
               'input:checked',
@@ -74,20 +74,36 @@ export default class GameView extends AbstractView {
         });
         break;
       case 'one-of-three':
-        gameOption.forEach((item, index) => {
-          item.addEventListener('click', () => {
-            if (this.data.answers[index].type !== 'painting') {
-              this.onAnswer(`wrong`);
-            } else {
-              this.onAnswer(`correct`);
-            }
-          });
-        });
+        this.oneOfThree();
         break;
       default:
         throw new Error(
           'next type of game in array not equal saved types of games',
         );
     }
+  }
+  oneOfThree() {
+    let correctAnswer;
+    this.data.answers.some((item, itemIndex) => {
+      for (let i = 0; i < this.data.answers.length; i++) {
+        if (item.type === this.data.answers[i].type && itemIndex !== i) {
+          correctAnswer = ``;
+          break;
+        } else {
+          correctAnswer = item.type;
+        }
+      }
+      if (correctAnswer) return true;
+      return false;
+    });
+    this.gameOption.forEach((item, index) => {
+      item.addEventListener('click', () => {
+        if (this.data.answers[index].type !== correctAnswer) {
+          this.onAnswer(`wrong`);
+        } else {
+          this.onAnswer(`correct`);
+        }
+      });
+    });
   }
 }

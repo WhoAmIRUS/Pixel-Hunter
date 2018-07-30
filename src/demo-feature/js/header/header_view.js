@@ -2,7 +2,6 @@ import AbstractView from '../view';
 import _ from '../../../../node_modules/lodash/lodash';
 import resultInfo from '../resultInfo';
 import { goToStart } from '../main';
-import Game from '../game/game';
 
 export default class HeaderView extends AbstractView {
   constructor(isFullHeader = false, content = '#block__header') {

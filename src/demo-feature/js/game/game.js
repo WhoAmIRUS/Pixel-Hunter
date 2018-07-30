@@ -20,12 +20,12 @@ export default class GamePresenter {
       resultInfo.lives === 0
     ) {
       goToFinal();
-      return false;
+      return;
     }
     stopTimer();
     this.currentGame = gameArr[gameArr.indexOf(this.currentGame) + 1];
     this.view = new GameView(this.currentGame);
-    return true;
+    this.init();
   }
   init() {
     startTimer(new Header(true).init(), this);
@@ -34,15 +34,15 @@ export default class GamePresenter {
       switch (answer) {
         case `correct`:
           GamePresenter.correctAnswer();
+          this.goToNextGame();
           break;
         case `wrong`:
           GamePresenter.wrongAnswer();
-          //debugger;
+          this.goToNextGame();
           break;
         default:
           throw new Error(`Strange type of answer`);
       }
-      if (this.goToNextGame()) this.init();
     };
   }
   static correctAnswer() {

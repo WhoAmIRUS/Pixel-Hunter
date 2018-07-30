@@ -2,8 +2,6 @@ import { changeView } from '../tempToElement';
 import StatsView from './stats-view';
 import resultInfo from '../resultInfo';
 import resultStats from '../resultStats';
-import { showPreloader, removePreloader } from '../main';
-import app from '../../index';
 
 export default class Stats {
   constructor() {
